@@ -16,9 +16,6 @@ class Ajax extends CI_Controller{
         $this->load->library('MY_PHPMailer');
         $this->load->model('user_model');
         $this->load->model("common_model");
-        $this->load->model("enquiry_model");
-        $this->load->model("comment_model");
-        $this->load->model("tour_model");
     }
     
     // Validate and login data in database
@@ -36,10 +33,10 @@ class Ajax extends CI_Controller{
         }else{
             $res = $result[0];
             //creating cookies for remeber me 
-            if(isset($post_data['remember_me'])){
+            if(isset($post_data['uni_remember_me'])){
                 $random_string =  base64_encode(time().uniqid());
                 $cookie = array(
-                        'name'   => 'remember_me',
+                        'name'   => 'uni_remember_me',
                         'value'  => $random_string,
                         'expire' => '1209600'  // Two weeks
                     );
@@ -54,11 +51,9 @@ class Ajax extends CI_Controller{
             $sess_array = array(
                         'id'=>$res ->id,
                         'email'=> $res->email,
-                        'deptId'=> $res->deptId,
-                        'userTypeId'=> $res->userTypeId,
+                        'plantId'=> $res->plant_id,
                         'logged_in'=> TRUE,
-                        'name'=>$res->name,
-                        'profile_image_id'=>$res->photo
+                        'name'=>$res->name
                         );
             $response_array['status'] = 1;
             $this->session->set_userdata($sess_array);

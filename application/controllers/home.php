@@ -18,11 +18,6 @@ class Home extends CI_Controller {
         }
         $data = array();
         $data['login_name'] = $this->session->userdata('name');
-        $data['total_enq'] = $this->enquiry_model->getBookingCounts();
-        $data['today_enq'] = $this->enquiry_model->getBookingCounts(true);
-        $graphdata = $this->enquiry_model->getGraphData();
-        $data['graph']['axis'] = $this->common_model->repeated_key_array_to_no_key_array("day", $graphdata);
-        $data['graph']['value'] = $this->common_model->repeated_key_array_to_no_key_array("sum", $graphdata);
         $this->load->view('header', $data);
         $this->load->view('sidebar', $data);
         $this->load->view('topnav', $data);

@@ -70,6 +70,7 @@
     <script src="../vendors/google-code-prettify/src/prettify.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>build/js/custom.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyndETMGr3nI9-3cTuje1jYftltHV8G2c&callback=initMap" async defer></script>
    	
   </body>
 </html>

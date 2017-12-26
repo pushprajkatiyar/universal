@@ -1,7 +1,7 @@
 function login_submit(){
     $("#login_button").fadeOut(1000);
    $("#login_spinner").fadeIn(100);
-    var base_url = window.location.origin + "/newtra/";
+    var base_url = window.location.origin + "/universal/";
 //    var base_url = window.location.origin;
     var form_data =  $('#login_form').serialize();
 

@@ -20,16 +20,17 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a href="<?php echo base_url(); ?>home"><i class="fa fa-home"></i> Home</a></li>
-                  <li><a><i class="fa fa-edit"></i> My Enquiries <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-hospital-o"></i>KISHAN SAHKARI CHINI MILLS LIMITED<span class="fa fa-chevron-down active"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="<?php echo base_url(); ?>enquiry/add">Raise New Enquiry</a></li>
-                      <li><a href="<?php echo base_url(); ?>enquiry">View Enquiries </a></li>
+                      <li><a href="#">Flow Meter 1</a></li>
+                      <li><a href="#">Flow Meter 2</a></li>
                     </ul>
                   </li>
-                  <li><a href="<?php echo base_url(); ?>tours"><i class="fa fa-desktop"></i> Tours </a></li>
-                  <li><a><i class="fa fa-automobile"></i> Book Vehicle </a></li>
-                  <li><a><i class="fa fa-ticket"></i> Book Ticket </a></li>
+                  <li><a><i class="fa fa-hospital-o"></i>Nanauta Shahkari Chini Mill <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="#">Flow Meter 1</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
