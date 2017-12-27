@@ -6,32 +6,25 @@
 
           <div class="row">
             <div class="col-md-7 col-sm-7 col-xs-7">
-              <!-- Customer basic Details Start -->
-               <div class="x_panel">
-                <div class="x_title">
-                    <h2>Customer Name:<small>KISHAN SAHKARI CHINI MILLS LIMITED</small></h2>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_title">
-                    <h2>Customer Address:<small>SEMIKHERA,P.O.DEORANIA,BAREILY-243203</small></h2>
-                  <div class="clearfix"></div>
-                </div>
-              </div>
-              <div class="clearfix"></div>  
-              <!-- Customer basic Details End -->
-              
               <!-- Historic Trends/Details Start -->
               <div class="x_panel">
                 <div class="x_title">
-                    <h2>Historic Trends<small>[ GRAPH ]</small></h2>
+                  <h2>Historic Trends<small>[ GRAPH ]</small></h2>
                   <div class="clearfix"></div>
                 </div>
                   <!-- Historic Trends/Details Graph Start -->
                 <div class="x_content">
                     <canvas id="lineChart" ></canvas>
                 </div>
-                  <!-- Historic Trends/Details Graph End -->
+              </div>  
+                <!-- Historic Trends/Details Graph End -->
+                
                 <!-- Historic Trends/Details Table Start -->
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Historic Trends<small>[ Table ]</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
                 <div class="x_content">
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
@@ -50,7 +43,7 @@
                           <tr class="even pointer">
                             <td class=" ">Bore Well 1 Flow</td>
                             <td class=" ">- </td>
-                            <td class=" ">M3/HR<i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">M3/HR</td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
@@ -58,7 +51,7 @@
                           <tr class="odd pointer">
                             <td class=" ">Bore Well 1 Total</td>
                             <td class=" "></td>
-                            <td class=" ">M3<i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">M3</td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
@@ -66,7 +59,7 @@
                           <tr class="even pointer">
                             <td class=" ">Bore Well 2 Flow</td>
                             <td class=" "></td>
-                            <td class=" ">M3/HR <i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">M3/HR </td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
@@ -90,7 +83,7 @@
                           <tr class="odd pointer">
                             <td class=" ">TSS</td>
                             <td class=" "></td>
-                            <td class=" ">MG/L <i class="error fa fa-long-arrow-down"></i></td>
+                            <td class=" ">MG/L </td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
@@ -98,7 +91,7 @@
                           <tr class="even pointer">
                             <td class=" ">COD</td>
                             <td class=" "></td>
-                            <td class=" ">MG/L <i class="error fa fa-long-arrow-down"></i></td>
+                            <td class=" ">MG/L</td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
@@ -106,7 +99,7 @@
                           <tr class="odd pointer">
                             <td class=" ">BOD</td>
                             <td class=" "></td>
-                            <td class=" ">MG/L <i class="error fa fa-long-arrow-down"></i></td>
+                            <td class=" ">MG/L </td>
                             <td class=" "></td>
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
@@ -123,16 +116,6 @@
             </div>
               
             <div class="col-md-5 col-sm-5 col-xs-5">
-                 <!--  Plant Data loading Start-->
-                 <div class="x_panel">
-                   <div class="x_title">
-                       <h2><small>Plant Data Loading Percentage:</small> 88%</h2>
-                     <div class="clearfix"></div>
-                   </div>
-                 </div>
-                 <div class="clearfix"></div>
-                 <!-- Loading end -->
-
                  <!-- Map of Plant Start-->
                  <div class="x_panel">
                    <div class="x_title">
@@ -164,6 +147,14 @@
                        <tr>
                          <th scope="row">Address</th>
                          <td>SEMIKHERA,P.O.DEORANIA,BAREILY-243203</td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Phone</th>
+                         <td>7055003483</td>
+                       </tr>
+                       <tr>
+                         <th scope="row">Email</th>
+                         <td>kscmsemikhera@gmail.com</td>
                        </tr>
                      </tbody>
                    </table>
@@ -209,7 +200,7 @@ $( document ).ready(function() {
                     }]
                   },
                 data: {
-                  labels: ["2017-12-19","2017-12-20","2017-12-21","2017-12-27","2017-12-29","2017-12-06","2017-12-19"],
+                  labels: ["1 AM","2 AM","3 AM","4 AM","5 AM","6 AM","7 AM"],
                   datasets: [{
                         label: "Booking: ",
                         backgroundColor: "rgba(3, 88, 106, 0.3)",
