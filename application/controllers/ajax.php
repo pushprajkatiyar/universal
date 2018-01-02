@@ -109,48 +109,15 @@ class Ajax extends CI_Controller{
         no_cache();
     }
     
-    function addquery(){
-        $tourid = $this->input->post('tourid');
-        $name = $this->input->post('name');
-        $email = $this->input->post('email');
-        $phone = $this->input->post('phone');
-        $touristCount = $this->input->post('number');
-        $price = $this->input->post('price');
-        $status = $this->input->post('paid');
-        $start_date = date("Y-m-d", strtotime($this->input->post('start_date')));
-        $end_date = date("Y-m-d", strtotime($this->input->post('end_date')));
-        
-        $comment = $this->input->post('comment');
-        
-        $added_enq_id = $this->enquiry_model->addBooking($tourid,$name,$email,$phone,$touristCount,$start_date,$end_date,$price,$status, $comment);
-        $date = date("Y-m-d H:i:s");
-        $userid = $this->session->userdata('id');
-        if($comment == ""){
-            $username = $this->session->userdata('name');
-            $comment = "Enquiry has been created by $username at $date";
-        }
-        $this->comment_model->addComment($added_enq_id, $userid, $comment, $date);        
-        $sendmail = $this->input->post('sendemail');
-        if($sendmail =="yes"){
-            $message = "<h2>Tour Itinerary</h2>";
-            $tourdata = $this->tour_model->getTourById($tourid);
-            $message .= $tourdata->itinerary;
-            $this->common_model->sendMail($email,"Your Booking With Travios Itinerary - Trav".$added_enq_id, $message);
-        }
-        if($added_enq_id){
-            $message = "Added Successfully";
-            $res_status = true;
-        }  else {
-            $res_status = false;
-            $message = "Failed, something is wrong !";
-        }
-        $response_array['message'] = $message;
-        $response_array['status'] = $res_status;
-        $response_array['redirect_url'] = "enquiry";
-        
+    function getDeviceData(){
+        //$enqid = $this->input->post('device_id');
+        //$date = date("Y-m-d H:i:s");
+
+        $response_array['message'] = "done";
+        $response_array['status'] = 1;
+                
         die(json_encode($response_array));
     }
-    
     function updateEnq(){
         $enqid = $this->input->post('enqid');
         $comment = $this->input->post('comment');

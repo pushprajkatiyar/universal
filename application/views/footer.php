@@ -2,8 +2,8 @@
         <footer>
           <div class="pull-right">
                 <div>
-                  <h1><i class="fa fa-paw"></i> Travios!</h1>
-                  <p>©2017 All Rights Reserved.</p>
+                 <h1> Universal Engg!</h1>
+                  <p>©2017-18 All Rights Reserved.</p>
                 </div>
           </div>
           <div class="clearfix"></div>
@@ -47,7 +47,7 @@
     <script src="<?php echo base_url(); ?>vendors/moment/min/moment.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     
-        <!-- Datatables -->
+    <!-- Datatables -->
     <script src="<?php echo base_url(); ?>vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
