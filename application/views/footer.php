@@ -63,11 +63,6 @@
     <script src="<?php echo base_url(); ?>vendors/jszip/dist/jszip.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/pdfmake/build/vfs_fonts.js"></script>
-
-<!-- bootstrap-wysiwyg -->
-    <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-    <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-    <script src="../vendors/google-code-prettify/src/prettify.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>build/js/custom.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyndETMGr3nI9-3cTuje1jYftltHV8G2c&callback=initMap" async defer></script>

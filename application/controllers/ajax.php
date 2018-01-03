@@ -52,6 +52,7 @@ class Ajax extends CI_Controller{
                         'id'=>$res ->id,
                         'email'=> $res->email,
                         'plantId'=> $res->plant_id,
+                        'currentPlantId'=> $res->plant_id,
                         'logged_in'=> TRUE,
                         'name'=>$res->name
                         );

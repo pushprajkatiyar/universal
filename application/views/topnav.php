@@ -7,8 +7,8 @@
               </div>
               <!-- Customer basic Details Start -->
               <div class="nav navbar-nav navbar-left">
-                 <h2>Customer Name: <small>KISHAN SAHKARI CHINI MILLS LIMITED</small></h2>
-                 <h2>Customer Address: <small>SEMIKHERA,P.O.DEORANIA,BAREILY-243203</small></h2>
+                 <h2>Customer Name: <small><?php echo $plants_devices[$current_plant]['plant']->name ?></small></h2>
+                 <h2>Customer Address: <small><?php echo $plants_devices[$current_plant]['plant']->address ?></small></h2>
               </div>
               <!----- Customer basic Details Ends -->
               

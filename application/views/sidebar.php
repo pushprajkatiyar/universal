@@ -19,18 +19,18 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
+                <!-- plant list -->
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-hospital-o"></i>KISHAN SAHKARI CHINI MILLS LIMITED<span class="fa fa-chevron-down active"></span></a>
+                 <?php foreach ($plants_devices as $plant) {  ?>
+                  <li><a><i class="fa fa-hospital-o"></i><?php echo $plant['plant']->name ?><span class="fa fa-chevron-down active"></span></a>
+                    <!-- implemented devices list -->
                     <ul class="nav child_menu">
-                      <li><a href="#">Flow Meter 1</a></li>
-                      <li><a href="#">Flow Meter 2</a></li>
+                      <?php foreach ($plant['devices'] as $device) {  ?>  
+                      <li><a href="#"><?php echo $device->name ?></a></li>
+                      <?php } ?>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-hospital-o"></i>Nanauta Shahkari Chini Mill <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#">Flow Meter 1</a></li>
-                    </ul>
-                  </li>
+                  <?php } ?>
                 </ul>
               </div>
 

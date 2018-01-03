@@ -13,8 +13,8 @@
                   <div class="clearfix"></div>
                 </div>
                   <!-- Historic Trends/Details Graph Start -->
-                <div class="x_content">
-                    <canvas id="lineChart" ></canvas>
+                  <div class="x_content" >
+                    <canvas id="lineChart" style="height: 550px; width: 100%"></canvas>
                 </div>
               </div>  
                 <!-- Historic Trends/Details Graph End -->
@@ -48,62 +48,7 @@
                             <td class=" "></td>
                             <td class="a-right a-right ">%</td>
                           </tr>
-                          <tr class="odd pointer">
-                            <td class=" ">Bore Well 1 Total</td>
-                            <td class=" "></td>
-                            <td class=" ">M3</td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class=" ">Bore Well 2 Flow</td>
-                            <td class=" "></td>
-                            <td class=" ">M3/HR </td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class=" ">Bore Well 2 Total</td>
-                            <td class=" "></td>
-                            <td class=" ">M3</td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class=" ">pH</td>
-                            <td class=" "></td>
-                            <td class=" ">pH</td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class=" ">TSS</td>
-                            <td class=" "></td>
-                            <td class=" ">MG/L </td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class=" ">COD</td>
-                            <td class=" "></td>
-                            <td class=" ">MG/L</td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class=" ">BOD</td>
-                            <td class=" "></td>
-                            <td class=" ">MG/L </td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
+                         
                         </tbody>
                       </table>
                     </div>
@@ -123,7 +68,7 @@
                      <div class="clearfix"></div>
                    </div>
                      <div class="x_content">
-                         <div id="map" style="height: 350px; width: 100%"></div>
+                         <div id="map" style="height: 380px; width: 100%"></div>
                      </div>  
                  </div>
                  <div class="clearfix"></div>
@@ -140,21 +85,21 @@
                      <thead>
                        <tr>
                          <th>Name</th>
-                         <th>KISHAN SAHKARI CHINI MILLS LIMITED</th>
+                         <th><?php echo $plants_devices[$current_plant]['plant']->name ?></th>
                        </tr>
                      </thead>
                      <tbody>
                        <tr>
                          <th scope="row">Address</th>
-                         <td>SEMIKHERA,P.O.DEORANIA,BAREILY-243203</td>
+                         <td><?php echo $plants_devices[$current_plant]['plant']->address ?></td>
                        </tr>
                        <tr>
                          <th scope="row">Phone</th>
-                         <td>7055003483</td>
+                         <td><?php echo $plants_devices[$current_plant]['plant']->phone ?></td>
                        </tr>
                        <tr>
                          <th scope="row">Email</th>
-                         <td>kscmsemikhera@gmail.com</td>
+                         <td><?php echo $plants_devices[$current_plant]['plant']->email ?></td>
                        </tr>
                      </tbody>
                    </table>
@@ -168,7 +113,7 @@
     <script>
 
       function initMap() {
-        var myLatLng = {lat: 28.9476504, lng: 77.2372391};
+        var myLatLng = {lat: <?php echo $plants_devices[$current_plant]['plant']->lat ?>, lng: <?php echo $plants_devices[$current_plant]['plant']->lng ?>};
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
@@ -179,7 +124,7 @@
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
-          title: 'KISHAN SAHKARI CHINI MILLS LIMITED!'
+          title: '<?php echo $plants_devices[$current_plant]['plant']->name ?>!'
         });
       }
     </script>
@@ -187,7 +132,7 @@
    // Line chart
 $( document ).ready(function() { 
         Chart.defaults.global.legend = {
-                        enabled: false
+                        enabled: true
                 };
           var ctx = document.getElementById("lineChart");
           var lineChart = new Chart(ctx, {
@@ -202,17 +147,43 @@ $( document ).ready(function() {
                 data: {
                   labels: ["1 AM","2 AM","3 AM","4 AM","5 AM","6 AM","7 AM"],
                   datasets: [{
-                        label: "Booking: ",
-                        backgroundColor: "rgba(3, 88, 106, 0.3)",
-                        borderColor: "rgba(3, 88, 106, 0.70)",
-                        pointBorderColor: "rgba(3, 88, 106, 0.70)",
-                        pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
-                        pointHoverBackgroundColor: "#fff",
-                        pointHoverBorderColor: "rgba(151,187,205,1)",
-                        pointBorderWidth: 2,
-                        data: ["1","2","3","4","4","5","4"]
+                        label: "Flow Meter 1: ",
+                        backgroundColor: "#FF0000",
+                        borderColor: "#FF0012",
+                        data: ["1","2","3","4","4","5","4"],
+                        fill: false
+                  },
+                  {
+                        label: "Flow Meter 2: ",
+                        backgroundColor: "#880000",
+                        borderColor: "#800000",
+                        data: ["4","2","1","5","4","4.5","2"],
+                        fill: false
                   }]
                 },
+            options: {
+                responsive: true,
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Time'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'M3/HR'
+                        }
+                    }]
+                }
+            }
           });
         });			
  </script>

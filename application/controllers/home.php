@@ -19,24 +19,14 @@ class Home extends CI_Controller {
         }
         $data = array();
 
-        $userid = $this->session->userdata('id');
-        if($userid == 1){
-            $all_plants = $this->plant_model->getAllPlants();            
-            foreach ($all_plants as $plant) {
-                $devices = array();
-//                        die(print_r($plant));
-                $plant_attributes = $this->plant_model->getPlantAttributesByPlantId($plant['id']);
-                $devices = $this->device_model->getDevicesByPlantId($plant['id']);
-                $data['plants_devices'][$plant['id']] = array("plant" => $plant, "devices" => $devices, 'plant_attributes' => $plant_attributes);
-            }
-        }else{
-            $plant =  $this->plant_model->getPlantByPlantId($this->session->userdata('plantId'));
-            $data['plant_attributes'] = $this->plant_model->getPlantAttributesByPlantId($this->session->userdata('plantId'));
-            $devices = $this->device_model->getDevicesByPlantId($this->session->userdata('plantId'));
-            $data['plants_devices'][$plant->id] = array("plant" => $plant, "devices" => $devices);
-        }
+        $plant =  $this->plant_model->getPlantByPlantId($this->session->userdata('plantId'));
+        $data['plant_attributes'] = $this->plant_model->getPlantAttributesByPlantId($this->session->userdata('plantId'));
+        $devices = $this->device_model->getDevicesByPlantId($this->session->userdata('plantId'));
+        $data['plants_devices'][$plant->id] = array("plant" => $plant, "devices" => $devices);
+        $data['current_device'] = $devices['0']->device_id;
+        
         $data['login_name'] = $this->session->userdata('name');
-        die(print_r($data));
+        $data['current_plant'] = $this->session->userdata('currentPlantId');
         $this->load->view('header', $data);
         $this->load->view('sidebar', $data);
         $this->load->view('topnav', $data);
