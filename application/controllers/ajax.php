@@ -16,6 +16,8 @@ class Ajax extends CI_Controller{
         $this->load->library('MY_PHPMailer');
         $this->load->model('user_model');
         $this->load->model("common_model");
+        $this->load->model("device_model");
+        $this->load->model("plant_model");
     }
     
     // Validate and login data in database
@@ -110,14 +112,42 @@ class Ajax extends CI_Controller{
         no_cache();
     }
     
-    function getDeviceData(){
-        //$enqid = $this->input->post('device_id');
+    function getGraphData(){
+        $plant_id = $this->input->post('plant_id');
+        $device_id = $this->input->post('device_id');
         //$date = date("Y-m-d H:i:s");
-
-        $response_array['message'] = "done";
-        $response_array['status'] = 1;
+       $plant_attributes = $this->plant_model->getPlantAttributesByPlantId($this->session->userdata('plantId'));
+       $columns ='reporting_datetime, ';
+       $columns_array = array();
+       
+       foreach ($plant_attributes as $atrribute) {
+           $columns .= $atrribute->history_col_name.",";
+           $columns_array[] = $atrribute->history_col_name;
+       }
+       $columns = rtrim($columns, ",");
+       //get graph data
+       $device_history = $this->device_model->getRecentHistoryByDeviceId($device_id, $columns, 20);
+       
+       $flowrate_1 = array();
+       $flowrate_2 = array();
+       $label = array();
+       foreach ($device_history as $history) {
+         $flowrate_1[] = $history->flowrate_1;
+         if(in_array("flowrate_2", $columns_array)){
+             $flowrate_2[] = $history->flowrate_2;
+         }
+         $label[]= date("d-m H:i:s", strtotime($history->reporting_datetime));
+       }
+//       $flowrate_1 = rtrim($flowrate_1, ", ");
+//       $flowrate_2 = rtrim($flowrate_2, ", ");
+//       $label = rtrim($label, ", ");
+       $response_array['graph_data']['flowrate_1'] = $flowrate_1;
+       $response_array['graph_data']['flowrate_2'] = $flowrate_2;
+       $response_array['graph_data']['label'] = $label;
+       $response_array['message'] = "done";
+       $response_array['status'] = 1;
                 
-        die(json_encode($response_array));
+       die(json_encode($response_array));
     }
     function updateEnq(){
         $enqid = $this->input->post('enqid');

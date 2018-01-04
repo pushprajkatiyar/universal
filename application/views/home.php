@@ -130,61 +130,77 @@
     </script>
  <script type="text/javascript">
    // Line chart
-$( document ).ready(function() { 
-        Chart.defaults.global.legend = {
-                        enabled: true
+   $( document ).ready(function() { 
+   var base_url = window.location.origin + "/universal/";
+   $.ajax({
+            type: "POST",
+            url: base_url+"ajax/getGraphData",
+            data: {device_id: <?php echo $current_device ?>},
+            dataType: "json",
+            success: function(data) {
+                if(data.status){
+                   // drwaChart(data.graph_data);
+                   var ChartData = data.graph_data;
+//                   debugger;
+                    Chart.defaults.global.legend = {
+                        enabled: false
                 };
-          var ctx = document.getElementById("lineChart");
-          var lineChart = new Chart(ctx, {
-                type: 'line',
-                scales: {
-                    xAxes: [{
-                      ticks: {
-                        maxRotation: 120 // angle in degrees
+                var ctx = document.getElementById("lineChart");
+                var lineChart = new Chart(ctx, {
+                      type: 'line',
+                      scales: {
+                          xAxes: [{
+                            ticks: {
+                              maxRotation: 120 // angle in degrees
+                            }
+                          }]
+                        },
+                      data: {
+                        labels: ChartData.label,
+                        datasets: [{
+                              label: "Flow Meter 1: ",
+                              backgroundColor: "#FF0000",
+                              borderColor: "#FF0012",
+                              data: ChartData.flowrate_1,
+                              fill: false
+                        },
+                        {
+                              label: "Flow Meter 2: ",
+                              backgroundColor: "#880000",
+                              borderColor: "#800000",
+                              data: ChartData.flowrate_2,
+                              fill: false
+                        }]
+                      },
+                  options: {
+                      responsive: true,
+                      hover: {
+                          mode: 'nearest',
+                          intersect: true
+                      },
+                      scales: {
+                          xAxes: [{
+                              display: true,
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'Time'
+                              }
+                          }],
+                          yAxes: [{
+                              display: true,
+                              scaleLabel: {
+                                  display: true,
+                                  labelString: 'M3/HR'
+                              }
+                          }]
                       }
-                    }]
-                  },
-                data: {
-                  labels: ["1 AM","2 AM","3 AM","4 AM","5 AM","6 AM","7 AM"],
-                  datasets: [{
-                        label: "Flow Meter 1: ",
-                        backgroundColor: "#FF0000",
-                        borderColor: "#FF0012",
-                        data: ["1","2","3","4","4","5","4"],
-                        fill: false
-                  },
-                  {
-                        label: "Flow Meter 2: ",
-                        backgroundColor: "#880000",
-                        borderColor: "#800000",
-                        data: ["4","2","1","5","4","4.5","2"],
-                        fill: false
-                  }]
-                },
-            options: {
-                responsive: true,
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Time'
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'M3/HR'
-                        }
-                    }]
+                  }
+                });
+                }else{
+                    console.log(">>>>>>>error");
                 }
             }
-          });
+        });
         });			
  </script>
         <!-- /page content -->
