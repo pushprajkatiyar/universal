@@ -60,6 +60,21 @@ class Device_model extends CI_Model {
             return array();
         }
     }
+    
+    public function getDeviceHistory($device_id, $clms, $condition){
+        $this->db->select($clms);
+        $this->db->from('device_HISTORY');
+        $this->db->where($condition);
+        $this->db->order_by("history_id", "DESC");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result =  $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 }
 
 ?>

@@ -27,7 +27,7 @@ class Plant_model extends CI_Model {
     public function getPlantAttributesByPlantId($plant_id) {
 
         $condition = "plant_id =" . "'" . $plant_id . "'";
-        $this->db->select('name, history_col_name, unit');
+        $this->db->select('name, history_col_name, unit, para_limit');
         $this->db->from('xref_plant_attribute');
         $this->db->join('attributes', 'attributes.id = xref_plant_attribute.attribute_id');
         $this->db->where($condition);

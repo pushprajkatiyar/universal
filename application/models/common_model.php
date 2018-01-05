@@ -27,6 +27,22 @@ class Common_model extends CI_Model {
             return array();
         }
     }
+    
+    public function getPlantAttributesValueByDeviceId($device_id, $clm, $limit = 1){
+        $this->db->select($clm);
+        $this->db->from('device_history');
+        $this->db->limit($limit);
+        $this->db->order_by("history_id", "desc");
+        
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result =  $query->result();
+            return $result;
+        } else {
+            return array();
+        } 
+    }
     public function getAllDept() {
 
         $this->db->select('*');

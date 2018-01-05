@@ -120,13 +120,32 @@ class Ajax extends CI_Controller{
        $columns ='reporting_datetime, ';
        $columns_array = array();
        
+       $datatable = array();
        foreach ($plant_attributes as $atrribute) {
            $columns .= $atrribute->history_col_name.",";
            $columns_array[] = $atrribute->history_col_name;
+           if($atrribute->history_col_name == "flowrate_1"){
+               //get current flow
+               $table["name"] = $atrribute->name;
+               //get last 2 values
+               $atb_value = $this->common_model->getPlantAttributesValueByDeviceId($device_id, $atrribute->history_col_name, 2);
+               
+               $table["instant_value"] = $atb_value[0]->{$atrribute->history_col_name};
+               $table["para_unit"] = $atrribute->unit;
+               $table["avg_value"] = ($atb_value[0]->{$atrribute->history_col_name} + $atb_value[0]->{$atrribute->history_col_name}) / 2;
+               $table["para_limit"] = $atrribute->para_limit;
+               $total_count_today = $this->device_model->getDeviceHistory($device_id, "count(*) as total",  "reporting_datetime > '".date("Y-m-d")."'");
+               //time diff
+               $timediff = (strtotime(date("Y-m-d H:i:s")) - strtotime(date("Y-m-d 00:00:00"))) / 30 ;
+               $table["data_uploading_per"] = ($total_count_today[0]->total / $timediff) * 100;
+               die(print_r($table));
+               //
+           }
+           $datatable[] = $table;
        }
        $columns = rtrim($columns, ",");
        //get graph data
-       $device_history = $this->device_model->getRecentHistoryByDeviceId($device_id, $columns, 20);
+       $device_history = array_reverse($this->device_model->getRecentHistoryByDeviceId($device_id, $columns, 10));
        
        $flowrate_1 = array();
        $flowrate_2 = array();
@@ -138,9 +157,6 @@ class Ajax extends CI_Controller{
          }
          $label[]= date("d-m H:i:s", strtotime($history->reporting_datetime));
        }
-//       $flowrate_1 = rtrim($flowrate_1, ", ");
-//       $flowrate_2 = rtrim($flowrate_2, ", ");
-//       $label = rtrim($label, ", ");
        $response_array['graph_data']['flowrate_1'] = $flowrate_1;
        $response_array['graph_data']['flowrate_2'] = $flowrate_2;
        $response_array['graph_data']['label'] = $label;
