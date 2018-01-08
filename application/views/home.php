@@ -27,7 +27,7 @@
                     </div>
                 <div class="x_content">
                     <div class="table-responsive">
-                      <table class="table table-striped jambo_table bulk_action">
+                      <table class="table table-bordered jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
                             <th class="column-title">Parameter </th>
@@ -39,15 +39,8 @@
                           </tr>
                         </thead>
 
-                        <tbody>
-                          <tr class="even pointer">
-                            <td class=" ">Bore Well 1 Flow</td>
-                            <td class=" ">- </td>
-                            <td class=" ">M3/HR</td>
-                            <td class=" "></td>
-                            <td class=" "></td>
-                            <td class="a-right a-right ">%</td>
-                          </tr>
+                        <tbody id="table_body">
+
                          
                         </tbody>
                       </table>
@@ -139,8 +132,31 @@
             dataType: "json",
             success: function(data) {
                 if(data.status){
-                   // drwaChart(data.graph_data);
-                   var ChartData = data.graph_data;
+                   drawChart(data.graph_data);
+                   drawtable(data.table_data);
+                }else{
+                    console.log(">>>>>>>error");
+                }
+            }
+        });
+ function drawtable(tableData){
+        var content = "";
+        for(i=0; i<tableData.length; i++){
+            content += '<tr class=" pointer">'
+                        +'    <td class=" ">'+ tableData[i].name +'</td>'
+                        +'    <td class=" ">'+ tableData[i].instant_value +'</td>'
+                        +'    <td class=" ">'+ tableData[i].para_unit +'</td>'
+                        +'    <td class=" ">'+ tableData[i].avg_value +'</td>'
+                        +'    <td class=" ">'+ tableData[i].para_limit +'</td>'
+                        +'    <td class="a-right a-right ">'+ tableData[i].data_uploading_per +'%</td>'
+                        +'  </tr>';
+        }
+
+        $('#table_body').html(content);
+ }
+ function drawChart(ChartData){
+     // 
+//                   var ChartData = data.graph_data;
 //                   debugger;
                     Chart.defaults.global.legend = {
                         enabled: false
@@ -196,11 +212,7 @@
                       }
                   }
                 });
-                }else{
-                    console.log(">>>>>>>error");
-                }
             }
-        });
         });			
  </script>
         <!-- /page content -->

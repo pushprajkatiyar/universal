@@ -124,7 +124,7 @@ class Ajax extends CI_Controller{
        foreach ($plant_attributes as $atrribute) {
            $columns .= $atrribute->history_col_name.",";
            $columns_array[] = $atrribute->history_col_name;
-           if($atrribute->history_col_name == "flowrate_1"){
+   //        if($atrribute->history_col_name == "flowrate_1" || $atrribute->history_col_name == "flowrate_2"){
                //get current flow
                $table["name"] = $atrribute->name;
                //get last 2 values
@@ -132,15 +132,14 @@ class Ajax extends CI_Controller{
                
                $table["instant_value"] = $atb_value[0]->{$atrribute->history_col_name};
                $table["para_unit"] = $atrribute->unit;
-               $table["avg_value"] = ($atb_value[0]->{$atrribute->history_col_name} + $atb_value[0]->{$atrribute->history_col_name}) / 2;
+               $table["avg_value"] = ($atb_value[0]->{$atrribute->history_col_name} + $atb_value[1]->{$atrribute->history_col_name}) / 2;
                $table["para_limit"] = $atrribute->para_limit;
                $total_count_today = $this->device_model->getDeviceHistory($device_id, "count(*) as total",  "reporting_datetime > '".date("Y-m-d")."'");
                //time diff
                $timediff = (strtotime(date("Y-m-d H:i:s")) - strtotime(date("Y-m-d 00:00:00"))) / 30 ;
                $table["data_uploading_per"] = ($total_count_today[0]->total / $timediff) * 100;
-               die(print_r($table));
                //
-           }
+       //    }
            $datatable[] = $table;
        }
        $columns = rtrim($columns, ",");
@@ -160,6 +159,7 @@ class Ajax extends CI_Controller{
        $response_array['graph_data']['flowrate_1'] = $flowrate_1;
        $response_array['graph_data']['flowrate_2'] = $flowrate_2;
        $response_array['graph_data']['label'] = $label;
+       $response_array['table_data']= $datatable;
        $response_array['message'] = "done";
        $response_array['status'] = 1;
                 
