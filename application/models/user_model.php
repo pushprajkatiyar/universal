@@ -7,7 +7,7 @@ class User_model extends CI_Model {
     }
 
     function login($email,$password) { 
-        $sql = "SELECT users.id, users.email, users.plant_id, users.name FROM users WHERE BINARY email='$email' AND BINARY password='$password'";
+        $sql = "SELECT users.id, users.email, users.userTypeId, users.plant_id, users.name FROM users WHERE BINARY email='$email' AND BINARY password='$password'";
         $query=$this->db->query($sql);
         if($query->num_rows()>0) {
             return $query->result();

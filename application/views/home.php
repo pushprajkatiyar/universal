@@ -125,6 +125,7 @@
    // Line chart
    $( document ).ready(function() { 
    var base_url = window.location.origin + "/universal/";
+   
    $.ajax({
             type: "POST",
             url: base_url+"ajax/getGraphData",
@@ -134,6 +135,7 @@
                 if(data.status){
                    drawChart(data.graph_data);
                    drawtable(data.table_data);
+                   $('#plant_data_loading_per').html(data.plant_data_uploading_per);
                 }else{
                     console.log(">>>>>>>error");
                 }
@@ -151,7 +153,7 @@
                         +'    <td class="a-right a-right ">'+ tableData[i].data_uploading_per +'%</td>'
                         +'  </tr>';
         }
-
+        
         $('#table_body').html(content);
  }
  function drawChart(ChartData){

@@ -27,6 +27,20 @@ class Common_model extends CI_Model {
             return array();
         }
     }
+    public function getAllAttr() {
+
+        $this->db->select('id, name');
+        $this->db->from('attributes');
+        
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result =  $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
     
     public function getPlantAttributesValueByDeviceId($device_id, $clm, $limit = 1){
         $this->db->select($clm);

@@ -102,51 +102,6 @@ class Plant_model extends CI_Model {
             return 0;
     }
     
-    function get_landing_image(){
-        $this->db->select('landing_image.id as id, landing_image.quote_head as quote_head,
-            landing_image.image_url as image_url, landing_image.quote_content as quote_content');
-        $this->db->from('landing_image');
-        //$this->db->where('trek_id', $trek_id);
-        
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        } else {
-            return FALSE;
-        }        
-    }
-    
-    function get_home_data(){
-        $this->db->select('landing_image.id as id, landing_image.quote_head as quote_head,
-            landing_image.image_url as image_url, landing_image.quote_content as quote_content');
-        $this->db->from('landing_image');
-        //$this->db->where('trek_id', $trek_id);
-        
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        } else {
-            return FALSE;
-        }        
-    }
-    
-    public function getHomeDataById($home_id) {
-
-        $condition = "id =" . "'" . $home_id . "'";
-        $this->db->select('id, quote_head, quote_content, image_url');
-        $this->db->from('landing_image');
-        $this->db->where($condition);
-        $this->db->limit(1);
-        $query = $this->db->get();
-
-        if ($query->num_rows() == 1) {
-            $result =  $query->result();
-            return $result[0];
-        } else {
-            return array();
-        }
-    }
-    
     public function uploadHomeImageAndResize($targetFile, $home_id, $quote_head, $quote_content){
             $this->load->library('image_lib');
             
@@ -189,70 +144,24 @@ class Plant_model extends CI_Model {
             return 0;
     }
     
-    function get_explorer_data(){
-        $this->db->select('explorer_image.id as id, explorer_image.image_url as image_url');
-        $this->db->from('explorer_image');
-        //$this->db->where('trek_id', $trek_id);
-        
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            return $query->result_array();
-        } else {
-            return FALSE;
-        }        
-    }
-    
-    public function getExplorerDataById($explorer_id) {
+    public function plant_reg($post_data) {
 
-        $condition = "id =" . "'" . $explorer_id . "'";
-        $this->db->select('id, image_url');
-        $this->db->from('explorer_image');
+        // Query to check whether username already exist or not
+        $condition = "email =" . "'" . $post_data['email'] . "'";
+        $this->db->select('*');
+        $this->db->from('plant');
         $this->db->where($condition);
         $this->db->limit(1);
         $query = $this->db->get();
-
-        if ($query->num_rows() == 1) {
-            $result =  $query->result();
-            return $result[0];
-        } else {
-            return array();
-        }
-    }
-    
-    public function uploadExplorerImageAndResize($targetFile, $explorer_id){
-            $this->load->library('image_lib');
-            
-            //creating full_image
-            /*
-            $config['image_library'] = 'gd2';
-            //$config1['create_thumb'] = TRUE;
-            $config['source_image'] = $targetFile;
-            $config['maintain_ratio'] = true;
-            $config['width']     = 800;
-            $config['height']   = 800;
-
-            $this->image_lib->clear();
-            $this->image_lib->initialize($config);
-            $this->image_lib->resize();
-            $this->image_lib->clear();
-            
-            $data['id'] = $explorer_id;
-            $data['image_url'] = ($explorer_id) ? "img/explorer/".$_FILES['file']['name'] : "img/".$_FILES['file']['name'];
-            //$data['x_thumb_url'] = ($trek_id) ? "img/trek/".$config1['new_image'] : "img/trek/thumb/".$config1['new_image'];
-            //$data['image_url'] = ($trek_id) ? "img/trek/thumb/".$config2['new_image'] : "img/trek/thumb/".$config2['new_image'];
-            //$data['created_at'] = date("Y-m-d H:i:s");
-            $data['updated_at'] = date("Y-m-d H:i:s");
-            
-            //$data['title'] = $_FILES['file']['name'];
-            //die(print_r($data));
-             
-             */
-            $data['image_url']  = "img/explorer/".$_FILES['file']['name'];
-            $res = $this->db->update('explorer_image', $data, array('id' => $explorer_id));
-            if($res){
-                return true;
+        if ($query->num_rows() == 0) {
+        // Query to insert data in database
+            $this->db->insert('plant', $post_data);
+            if ($this->db->affected_rows() > 0) {
+                return $this->db->insert_id();
             }
-            return 0;
+        } else {
+            return false;
+        }
     }
     
     function getAllPlants(){

@@ -47,7 +47,7 @@ class Device_model extends CI_Model {
     public function getRecentHistoryByDeviceId($device_id,  $columns,  $limit = 30) {
         $condition = "device_id ='$device_id'";
         $this->db->select("$columns");
-        $this->db->from('device_HISTORY');
+        $this->db->from('device_history');
         $this->db->where($condition);
         $this->db->order_by("history_id", "DESC");
         $this->db->limit($limit);
@@ -63,7 +63,7 @@ class Device_model extends CI_Model {
     
     public function getDeviceHistory($device_id, $clms, $condition){
         $this->db->select($clms);
-        $this->db->from('device_HISTORY');
+        $this->db->from('device_history');
         $this->db->where($condition);
         $this->db->order_by("history_id", "DESC");
         $query = $this->db->get();

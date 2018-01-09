@@ -14,7 +14,7 @@
               
               <!--  Plant Data loading Start-->
               <div class="nav navbar-nav" style="float: right;margin-right: 30%">
-                 <h2><small>Plant Data Loading Percentage:</small> 88%</h2>
+                  <h2>Plant Data Loading Percentage: <small id="plant_data_loading_per"> </small> %</h2>
               </div>
               <!-- Loading end -->
             </nav>

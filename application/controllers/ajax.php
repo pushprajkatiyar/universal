@@ -49,7 +49,15 @@ class Ajax extends CI_Controller{
             //cookei creation done 
             
             $response_array['message'] = "Login succesfull";
-            $response_array['redirect_url'] = 'home';
+            $home = 'home';
+            if($res->userTypeId == 1){
+                $home = "cpcb";
+            }
+            if($res->userTypeId == 2){
+                $home = "admin";
+            }
+
+            $response_array['redirect_url'] = $home;
             $sess_array = array(
                         'id'=>$res ->id,
                         'email'=> $res->email,
@@ -63,36 +71,47 @@ class Ajax extends CI_Controller{
         }
         die(json_encode($response_array));
     }
-/*    
+    
     // Validate and store registration data in database
     public function signup() {
-//        $var = mkdir('img/users/161', 0777);
-//        var_dump($var);
-//        die;
         $post_data = array(
-                        'name' => $this->input->post('user_name'),
-                        'email' => trim($this->input->post('user_email')),
-                        'password' => $this->input->post('user_password'),
-                        'last_visit' => date("Y-m-d"),
-                        'profile_image_id' => 1,
+                        'name' => $this->input->post('plant_name'),
+                        'address' => $this->input->post('address'),
+                        'email' => trim($this->input->post('email')),
+                        'phone' => $this->input->post('phone'),
+                        'lat' => $this->input->post('lat'),
+                        'lng' => $this->input->post('lng'),
+                        'description' => $this->input->post('description'),
+                        'zip' => $this->input->post('zip'),
+                        'city' => $this->input->post('city'),
+                        'state' => $this->input->post('state'),
                         'created_at' => date("Y-m-d H:i:s"),
                         'updated_at' => date("Y-m-d H:i:s")
                         );
-        
-        $result = $this->user_model->registration_insert($post_data);
-        //die(print_r($result));
+        die(print_r($_POST));
+        $plant_id = $this->plant_model->plant_reg($post_data);
         if(!$result){
             $response_array['message'] = "This email id is already registered!";
             $response_array['redirect_url'] = '';
             $response_array['status'] = 0;
         }else{
-            $send_to = $post_data['email'];
-            $message = 'Hello This is welcome massage for you from Trekoholic';
-            $subject = 'Welcome to Trekoholic';
-            $this->common_model->add_mail($send_to,$subject,$message);
+            $post_data_user = array(
+                        'plant_id' => $plant_id,
+                        'name' => $this->input->post('name'),
+                        'userTypeId' => 3,
+                        'email' => trim($this->input->post('email')),
+                        'password' => trim($this->input->post('password')),
+                        'address1' => $this->input->post('address'),
+                        'address2' => "-",
+                        'phone' => $this->input->post('phone'),
+                        'pin' => $this->input->post('zip'),
+                        'city' => $this->input->post('city'),
+                        'state' => $this->input->post('state'),
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s")
+                    );
+            $user_id = $this->user_model->registration_insert($post_data_user);
             
-            $user_id = $this->user_model->getLastuserById();
-            mkdir("img/users/$user_id->id", 0777);
             
             $response_array['message'] = "Registration Successfull! Feel Free to Login.";
             $response_array['redirect_url'] = 'home';
@@ -100,7 +119,7 @@ class Ajax extends CI_Controller{
         }
         die(json_encode($response_array));
     }
- */   
+  
     public function logout(){
         //remove all session data
         $this->session->unset_userdata('logged_in');
@@ -124,7 +143,6 @@ class Ajax extends CI_Controller{
        foreach ($plant_attributes as $atrribute) {
            $columns .= $atrribute->history_col_name.",";
            $columns_array[] = $atrribute->history_col_name;
-   //        if($atrribute->history_col_name == "flowrate_1" || $atrribute->history_col_name == "flowrate_2"){
                //get current flow
                $table["name"] = $atrribute->name;
                //get last 2 values
@@ -137,9 +155,8 @@ class Ajax extends CI_Controller{
                $total_count_today = $this->device_model->getDeviceHistory($device_id, "count(*) as total",  "reporting_datetime > '".date("Y-m-d")."'");
                //time diff
                $timediff = (strtotime(date("Y-m-d H:i:s")) - strtotime(date("Y-m-d 00:00:00"))) / 30 ;
-               $table["data_uploading_per"] = ($total_count_today[0]->total / $timediff) * 100;
-               //
-       //    }
+               $table["data_uploading_per"] = round(($total_count_today[0]->total / $timediff) * 100, 2);
+               $plant_loading_per = $table["data_uploading_per"] * 2;
            $datatable[] = $table;
        }
        $columns = rtrim($columns, ",");
@@ -160,32 +177,13 @@ class Ajax extends CI_Controller{
        $response_array['graph_data']['flowrate_2'] = $flowrate_2;
        $response_array['graph_data']['label'] = $label;
        $response_array['table_data']= $datatable;
+       $response_array['plant_data_uploading_per'] = round($plant_loading_per, 2);
        $response_array['message'] = "done";
        $response_array['status'] = 1;
                 
        die(json_encode($response_array));
     }
-    function updateEnq(){
-        $enqid = $this->input->post('enqid');
-        $comment = $this->input->post('comment');
-        $toDept = $this->input->post('todept');
-        $userid = $this->session->userdata('id');
-        $date = date("Y-m-d H:i:s");
 
-        $added = $this->comment_model->addComment($enqid, $userid, $comment, $date);
-        $added = $this->enquiry_model->updateDept($enqid, $toDept, $userid);
-        if($added){
-            $message = "Updated Successfully";
-        }  else {
-            $message = "Failed, something is wrong !";
-        }
-        $response_array['message'] = $message;
-        $response_array['status'] = $added;
-        $response_array['redirect_url'] = "enquiry";
-        
-        die(json_encode($response_array));
-    }
-    
     function updateTour(){
         $enqid = $this->input->post('enqid');
         $comment = $this->input->post('comment');
@@ -196,26 +194,6 @@ class Ajax extends CI_Controller{
         $added = $this->comment_model->addComment($enqid, $userid, $comment, $date);
         $added = $this->enquiry_model->updateDept($enqid, $toDept, $userid);
         if($added){
-            $message = "Updated Successfully";
-        }  else {
-            $message = "Failed, something is wrong !";
-        }
-        $response_array['message'] = $message;
-        $response_array['status'] = $added;
-        $response_array['redirect_url'] = "enquiry";
-        
-        die(json_encode($response_array));
-    }
-    
-    function closeEnq(){
-        $enqid = $this->input->post('id');
-        $userid = $this->session->userdata('id');
-        $username = $this->session->userdata('name');
-        $date = date("Y-m-d H:i:s");
-        $comment = "Booking closed by $username at $date";
-        $added = $this->comment_model->addComment($enqid, $userid, $comment, $date);
-        $closed = $this->enquiry_model->closeBooking($enqid);
-        if($closed){
             $message = "Updated Successfully";
         }  else {
             $message = "Failed, something is wrong !";
