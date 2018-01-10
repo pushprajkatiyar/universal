@@ -10,6 +10,7 @@ class Cpcb extends CI_Controller {
         $this->load->library('session');
         $this->load->model('common_model');
         $this->load->model('plant_model');
+        $this->load->model('device_model');
     }
     
     public function index() {
@@ -28,9 +29,9 @@ class Cpcb extends CI_Controller {
         }        
         $data['login_name'] = $this->session->userdata('name');
         $this->load->view('header', $data);
-        $this->load->view('sidebar', $data);
-        $this->load->view('topnav', $data);
-        $this->load->view('home', $data);
+        $this->load->view('sidebar_cpcb', $data);
+        $this->load->view('topnav_cpcb', $data);
+        $this->load->view('home_cpcb', $data);
         $this->load->view('footer');
     }
 }

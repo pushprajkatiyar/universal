@@ -134,6 +134,7 @@ class Ajax extends CI_Controller{
     function getGraphData(){
         $plant_id = $this->input->post('plant_id');
         $device_id = $this->input->post('device_id');
+        $this->session->set_userdata('plantId', $plant_id);
         //$date = date("Y-m-d H:i:s");
        $plant_attributes = $this->plant_model->getPlantAttributesByPlantId($this->session->userdata('plantId'));
        $columns ='reporting_datetime, ';
@@ -156,7 +157,7 @@ class Ajax extends CI_Controller{
                //time diff
                $timediff = (strtotime(date("Y-m-d H:i:s")) - strtotime(date("Y-m-d 00:00:00"))) / 30 ;
                $table["data_uploading_per"] = round(($total_count_today[0]->total / $timediff) * 100, 2);
-               $plant_loading_per = $table["data_uploading_per"] * 2;
+               $plant_loading_per = $table["data_uploading_per"] ;
            $datatable[] = $table;
        }
        $columns = rtrim($columns, ",");
@@ -177,6 +178,7 @@ class Ajax extends CI_Controller{
        $response_array['graph_data']['flowrate_2'] = $flowrate_2;
        $response_array['graph_data']['label'] = $label;
        $response_array['table_data']= $datatable;
+       $response_array['plant']= $this->plant_model->getPlantByPlantId($this->session->userdata('plantId'));
        $response_array['plant_data_uploading_per'] = round($plant_loading_per, 2);
        $response_array['message'] = "done";
        $response_array['status'] = 1;

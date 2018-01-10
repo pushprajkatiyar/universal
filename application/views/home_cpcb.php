@@ -78,21 +78,21 @@
                      <thead>
                        <tr>
                          <th>Name</th>
-                         <th><?php echo $plants_devices[$current_plant]['plant']->name ?></th>
+                         <th id="plant_name_table"></th>
                        </tr>
                      </thead>
                      <tbody>
                        <tr>
                          <th scope="row">Address</th>
-                         <td><?php echo $plants_devices[$current_plant]['plant']->address ?></td>
+                         <td id="plant_add_table"></td>
                        </tr>
                        <tr>
                          <th scope="row">Phone</th>
-                         <td><?php echo $plants_devices[$current_plant]['plant']->phone ?></td>
+                         <td id="plant_phone_table"></td>
                        </tr>
                        <tr>
                          <th scope="row">Email</th>
-                         <td><?php echo $plants_devices[$current_plant]['plant']->email ?></td>
+                         <td id="plant_email_table"></td>
                        </tr>
                      </tbody>
                    </table>
@@ -105,9 +105,9 @@
         </div>
     <script>
 
-      function initMap() {
-        var myLatLng = {lat: <?php echo $plants_devices[$current_plant]['plant']->lat ?>, lng: <?php echo $plants_devices[$current_plant]['plant']->lng ?>};
-
+      function initMap(lat, lng) {
+        var myLatLng = {lat: parseFloat(lat), lng: parseFloat(lng)};
+debugger;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
           center: myLatLng,
@@ -117,30 +117,38 @@
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
-          title: '<?php echo $plants_devices[$current_plant]['plant']->name ?>!'
+          title: ''
         });
       }
     </script>
  <script type="text/javascript">
    // Line chart
-   $( document ).ready(function() { 
-   var base_url =  "<?php echo base_url(); ?>";
-   
-   $.ajax({
-            type: "POST",
-            url: base_url+"ajax/getGraphData",
-            data: {device_id: <?php echo $current_device ?>, plant_id: <?php echo $plants_devices[$current_plant]['plant']->id ?>},
-            dataType: "json",
-            success: function(data) {
-                if(data.status){
-                   drawChart(data.graph_data);
-                   drawtable(data.table_data);
-                   $('#plant_data_loading_per').html(data.plant_data_uploading_per);
-                }else{
-                    console.log(">>>>>>>error");
-                }
-            }
-        });
+   function getDeviceData(device_id, plant_id){
+    var base_url = "<?php echo base_url(); ?>";
+
+    $.ajax({
+             type: "POST",
+             url: base_url+"ajax/getGraphData",
+             data: {device_id: device_id, plant_id: plant_id},
+             dataType: "json",
+             success: function(data) {
+                 if(data.status){
+                    drawChart(data.graph_data);
+                    drawtable(data.table_data);
+                    initMap(data.plant.lat, data.plant.lng);
+                    $('#plant_data_loading_per').html(data.plant_data_uploading_per);
+                    $('#plant_name').html(data.plant.name);
+                    $('#plant_add').html(data.plant.address);
+                    $('#plant_name_table').html(data.plant.name);
+                    $('#plant_add_table').html(data.plant.address);
+                    $('#plant_phone_table').html(data.plant.phone);
+                    $('#plant_email_table').html(data.plant.email);
+                 }else{
+                     console.log(">>>>>>>error");
+                 }
+             }
+         });
+    }      
  function drawtable(tableData){
         var content = "";
         for(i=0; i<tableData.length; i++){
@@ -214,7 +222,6 @@
                       }
                   }
                 });
-            }
-        });			
+            }			
  </script>
         <!-- /page content -->
