@@ -27,7 +27,7 @@
                     </div>
                 <div class="x_content">
                     <div class="table-responsive">
-                      <table class="table table-bordered jambo_table bulk_action">
+                        <table class="table table-bordered jambo_table bulk_action" id="fact_table">
                         <thead>
                           <tr class="headings">
                             <th class="column-title">Parameter </th>
@@ -122,7 +122,7 @@
     </script>
  <script type="text/javascript">
    // Line chart
-   function getDeviceData(device_id, plant_id){
+ function getDeviceData(device_id, plant_id){
     var base_url = "<?php echo base_url(); ?>";
 
     $.ajax({
@@ -133,7 +133,7 @@
              success: function(data) {
                  if(data.status){
                     drawChart(data.graph_data);
-                    drawtable(data.table_data);
+                    //drawtable(data.table_data);
                     initMap(data.plant.lat, data.plant.lng);
                     $('#plant_data_loading_per').html(data.plant_data_uploading_per);
                     $('#plant_name').html(data.plant.name);
@@ -142,27 +142,49 @@
                     $('#plant_add_table').html(data.plant.address);
                     $('#plant_phone_table').html(data.plant.phone);
                     $('#plant_email_table').html(data.plant.email);
+                    //draw table
+                    $('#fact_table').DataTable({
+                        data: data.table_data,
+                        searching: false,
+                        paging: false,
+                        columns: [
+                            { data: 'name' },
+                            { data: 'instant_value' }, //or { data: 'MONTH', title: 'Month' }`
+                            { data: 'para_unit' },
+                            { data: 'avg_value' },
+                            { data: 'para_limit' },
+                            { data: 'data_uploading_per' }
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                                    {
+                                      extend: "copy",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "csv",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "excel",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "pdfHtml5",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "print",
+                                      className: "btn-sm"
+                                    },
+                              ]
+                    });
                  }else{
                      console.log(">>>>>>>error");
                  }
              }
          });
     }      
- function drawtable(tableData){
-        var content = "";
-        for(i=0; i<tableData.length; i++){
-            content += '<tr class=" pointer">'
-                        +'    <td class=" ">'+ tableData[i].name +'</td>'
-                        +'    <td class=" ">'+ tableData[i].instant_value +'</td>'
-                        +'    <td class=" ">'+ tableData[i].para_unit +'</td>'
-                        +'    <td class=" ">'+ tableData[i].avg_value +'</td>'
-                        +'    <td class=" ">'+ tableData[i].para_limit +'</td>'
-                        +'    <td class="a-right a-right ">'+ tableData[i].data_uploading_per +'%</td>'
-                        +'  </tr>';
-        }
-        
-        $('#table_body').html(content);
- }
  function drawChart(ChartData){
      // 
 //                   var ChartData = data.graph_data;

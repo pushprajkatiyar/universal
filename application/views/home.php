@@ -25,9 +25,9 @@
                         <h2>Historic Trends<small>[ Table ]</small></h2>
                         <div class="clearfix"></div>
                     </div>
-                <div class="x_content">
+               <div class="x_content">
                     <div class="table-responsive">
-                      <table class="table table-bordered jambo_table bulk_action">
+                        <table class="table table-bordered jambo_table bulk_action" id="fact_table">
                         <thead>
                           <tr class="headings">
                             <th class="column-title">Parameter </th>
@@ -103,8 +103,7 @@
           </div>
           <br />
         </div>
-    <script>
-
+    <script  type="text/javascript">
       function initMap() {
         var myLatLng = {lat: <?php echo $plants_devices[$current_plant]['plant']->lat ?>, lng: <?php echo $plants_devices[$current_plant]['plant']->lng ?>};
 
@@ -134,8 +133,45 @@
             success: function(data) {
                 if(data.status){
                    drawChart(data.graph_data);
-                   drawtable(data.table_data);
+                   //drawtable(data.table_data);
                    $('#plant_data_loading_per').html(data.plant_data_uploading_per);
+                   //draw table
+                    $('#fact_table').DataTable({
+                        data: data.table_data,
+                        searching: false,
+                        paging: false,
+                        columns: [
+                            { data: 'name' },
+                            { data: 'instant_value' }, //or { data: 'MONTH', title: 'Month' }`
+                            { data: 'para_unit' },
+                            { data: 'avg_value' },
+                            { data: 'para_limit' },
+                            { data: 'data_uploading_per' }
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                                    {
+                                      extend: "copy",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "csv",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "excel",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "pdfHtml5",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "print",
+                                      className: "btn-sm"
+                                    },
+                              ]
+                    });
                 }else{
                     console.log(">>>>>>>error");
                 }

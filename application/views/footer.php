@@ -53,7 +53,6 @@
     <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
@@ -61,8 +60,9 @@
     <script src="<?php echo base_url(); ?>vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="<?php echo base_url(); ?>vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <script src="<?php echo base_url(); ?>vendors/jszip/dist/jszip.min.js"></script>
-    <script src="<?php echo base_url(); ?>vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="<?php echo base_url(); ?>vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+        <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>build/js/custom.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyndETMGr3nI9-3cTuje1jYftltHV8G2c&callback=initMap" async defer></script>
