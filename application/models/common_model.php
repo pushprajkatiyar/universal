@@ -47,6 +47,7 @@ class Common_model extends CI_Model {
         $this->db->from('device_history');
         $this->db->limit($limit);
         $this->db->order_by("history_id", "desc");
+        $this->db->where("device_id", $device_id);
         
         $query = $this->db->get();
 

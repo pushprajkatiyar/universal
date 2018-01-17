@@ -31,6 +31,7 @@ class Plant_model extends CI_Model {
         $this->db->from('xref_plant_attribute');
         $this->db->join('attributes', 'attributes.id = xref_plant_attribute.attribute_id');
         $this->db->where($condition);
+        $this->db->where("active", 1);
         $query = $this->db->get();
 
         if ($query->num_rows() > 0) {

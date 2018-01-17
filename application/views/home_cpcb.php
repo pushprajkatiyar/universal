@@ -142,11 +142,10 @@
                     $('#plant_add_table').html(data.plant.address);
                     $('#plant_phone_table').html(data.plant.phone);
                     $('#plant_email_table').html(data.plant.email);
-                    //draw table
+                    //draw table                    
                     $('#fact_table').DataTable({
                         data: data.table_data,
-                        searching: false,
-                        paging: false,
+                        destroy: true,
                         columns: [
                             { data: 'name' },
                             { data: 'instant_value' }, //or { data: 'MONTH', title: 'Month' }`
@@ -179,6 +178,7 @@
                                     },
                               ]
                     });
+                    
                  }else{
                      console.log(">>>>>>>error");
                  }
