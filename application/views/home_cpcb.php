@@ -107,7 +107,6 @@
 
       function initMap(lat, lng) {
         var myLatLng = {lat: parseFloat(lat), lng: parseFloat(lng)};
-debugger;
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
           center: myLatLng,
