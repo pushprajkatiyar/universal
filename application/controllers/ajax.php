@@ -155,7 +155,7 @@ class Ajax extends CI_Controller{
                $table["para_limit"] = $atrribute->para_limit;
                $total_count_today = $this->device_model->getDeviceHistory($device_id, "count(*) as total",  "reporting_datetime > '".date("Y-m-d")."'");
                //time diff
-               $timediff = (strtotime(date("Y-m-d H:i:s")) - strtotime(date("Y-m-d 00:00:00"))) / 30 ;
+               $timediff = (strtotime(date("Y-m-d H:i:s")) - strtotime(date("Y-m-d 00:00:00"))) / 60 ;
                $timediff = (int)$timediff;
                $table["data_uploading_per"] = round(($total_count_today[0]->total / $timediff) * 100, 2) > 100 ? 100 : round(($total_count_today[0]->total / $timediff) * 100, 2);
                $plant_loading_per = $table["data_uploading_per"] ;

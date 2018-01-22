@@ -1,4 +1,4 @@
-        <div class="col-md-3 left_col">
+<div class="col-md-3 left_col" style="overflow: scroll; height: 100%">
           <div class="left_col scroll-view">
             <div class="clearfix"></div>
 

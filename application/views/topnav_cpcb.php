@@ -14,7 +14,9 @@
               
               <!--  Plant Data loading Start-->
               <div class="nav navbar-nav" style="float: right;margin-right: 30%">
-                  <h2>Plant Data Loading Percentage: <small id="plant_data_loading_per"> </small> %</h2>
+                  <h2>Plant Data Loading %: <small id="plant_data_loading_per"> </small> %</h2>
+                  <!-- Large modal -->
+                  <button type="button" class="btn btn-primary right" data-toggle="modal" data-target=".bs-report-modal-lg">Station Report</button>
               </div>
               <!-- Loading end -->
             </nav>
