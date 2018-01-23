@@ -168,6 +168,7 @@ class Plant_model extends CI_Model {
     function getAllPlants(){
         $this->db->select('*');
         $this->db->from('plant');        
+        $this->db->order_by('name');        
         $query = $this->db->get();
         
         return $query->result_array();                

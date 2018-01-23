@@ -135,6 +135,8 @@ class Ajax extends CI_Controller{
         $plant_id = $this->input->post('plant_id');
         $device_id = $this->input->post('device_id');
         $this->session->set_userdata('plantId', $plant_id);
+        $this->session->set_userdata('currentPlantId', $plant_id);
+        $this->session->set_userdata('currentDeviceId', $device_id);
         //$date = date("Y-m-d H:i:s");
        $plant_attributes = $this->plant_model->getPlantAttributesByPlantId($this->session->userdata('plantId'));
        $columns ='reporting_datetime, ';
@@ -187,23 +189,17 @@ class Ajax extends CI_Controller{
        die(json_encode($response_array));
     }
 
-    function updateTour(){
-        $enqid = $this->input->post('enqid');
-        $comment = $this->input->post('comment');
-        $toDept = $this->input->post('todept');
-        $userid = $this->session->userdata('id');
-        $date = date("Y-m-d H:i:s");
+    function getStationReport(){
+        $fromDate = date("Y-m-d", strtotime($this->input->post('from_date')));
+        $toDate = date("Y-m-d", strtotime($this->input->post('to_date')));;
+        $interval = $this->input->post('interval');
+//        die(print_r($this->session->all_userdata()));
+        $device_id = $this->session->userdata('currentDeviceId');
+        $where = "reporting_datetime BETWEEN '$fromDate' AND '$toDate'";
+        $data = $this->device_model->getDeviceHistory($device_id, "flowrate_1, total_1, flowrate_2, total_2, reporting_datetime", $where);
 
-        $added = $this->comment_model->addComment($enqid, $userid, $comment, $date);
-        $added = $this->enquiry_model->updateDept($enqid, $toDept, $userid);
-        if($added){
-            $message = "Updated Successfully";
-        }  else {
-            $message = "Failed, something is wrong !";
-        }
-        $response_array['message'] = $message;
-        $response_array['status'] = $added;
-        $response_array['redirect_url'] = "enquiry";
+        $response_array['data'] = $data;
+        $response_array['status'] = 1;
         
         die(json_encode($response_array));
     }

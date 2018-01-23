@@ -9,7 +9,7 @@
               <!-- Historic Trends/Details Start -->
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Historic Trends<small>[ GRAPH ]</small></h2>
+                    <h2>Historic Trends     <small class="right"> Device Last Reported At: <span id="last_reported" style="font-weight: bold;color: black" ></span> </small></h2>
                   <div class="clearfix"></div>
                 </div>
                   <!-- Historic Trends/Details Graph Start -->
@@ -22,7 +22,7 @@
                 <!-- Historic Trends/Details Table Start -->
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Historic Trends<small>[ Table ]</small></h2>
+                        <h2>Parameter's Data<small>[ Table ]</small></h2>
                         <div class="clearfix"></div>
                     </div>
                 <div class="x_content">
@@ -113,63 +113,93 @@
                         </div>
                         <div class="modal-body">
                           <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Form Design <small>different form elements</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                          <div class="x_panel">
+                            <div class="x_content">
+                              <br />
+                              <form id="report_form"  class="form-horizontal form-label-left">
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">From Date <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">From Date <span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <input type="text" id="from_date" name="from_date" required="required" class="form-control col-md-7 col-xs-12 report_dates">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">To Date <span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="to_date" name="to_date" required="required" class="form-control col-md-7 col-xs-12 report_dates">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Interval</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <select class="form-control" name="interval">
+                                      <option>30 Sec</option>
+                                      <option>1 Min</option>
+                                      <option>2 Min</option>
+                                      <option>5 Min</option>
+                                      <option>15 Min</option>
+                                      <option>30 Min</option>
+                                      <option>1 Hour</option>
+                                      <option>1 Day</option>
+                                    </select>
+                                  </div>
+                                </div>                      
+                                <div class="ln_solid"></div>
+                                <button type="button" class="btn btn-primary" onclick="getStationReport()">Generate Report</button>
+                                <div class="ln_solid"></div>
+                                <table id="report_table" class="table table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Flow Meter 1</th>
+                                        <th>Totalizer 1</th>
+                                        <th>Flow Meter 2</th>
+                                        <th>Totalizer 2</th>
+                                        <th>Reported Time</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                                </form>
+                            </div>
+                          </div>
                         </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          
+                        </div>
+
                       </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">To Date <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Interval</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control">
-                            <option>30 Sec</option>
-                            <option>One Min</option>
-                            <option>One Hour</option>
-                            <option>One Day</option>
-                          </select>
-                        </div>
-                      </div>                      
-                      <div class="ln_solid"></div>
-					  <button type="button" class="btn btn-primary">Generate Report</button>
-                      </form>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
+              <!-- Large modal -->
+                  <div class="modal fade bs-calibration-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Online Data Calibration Stats</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                          <div class="x_panel">
+                            <div class="x_content">
+                              <br />
+                              <p>Data calibration started at : 2018-01-23 : 01:17:23</p>
+                              <p>Data received by device at : 2018-01-23 : 01:17:24</p>
+                              <p>Data received by server at : 2018-01-23 : 01:17:25</p>
+                              <p>Data calibration ended at : 2018-01-23 : 01:17:25</p>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -183,7 +213,12 @@
           <br />
         </div>
     <script>
-
+        $(function() {
+            $('.report_dates').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true
+            }) 
+        })
       function initMap(lat, lng) {
         var myLatLng = {lat: parseFloat(lat), lng: parseFloat(lng)};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -221,10 +256,15 @@
                     $('#plant_add_table').html(data.plant.address);
                     $('#plant_phone_table').html(data.plant.phone);
                     $('#plant_email_table').html(data.plant.email);
+                    $('#last_reported').html(data.graph_data.label[9]);
                     //draw table                    
                     $('#fact_table').DataTable({
                         data: data.table_data,
                         destroy: true,
+                        searching: false,
+                        paging:   false,
+                        ordering: false,
+                        info:     false,
                         columns: [
                             { data: 'name' },
                             { data: 'instant_value' }, //or { data: 'MONTH', title: 'Month' }`
@@ -232,30 +272,7 @@
                             { data: 'avg_value' },
                             { data: 'para_limit' },
                             { data: 'data_uploading_per' }
-                        ],
-                        dom: 'Bfrtip',
-                        buttons: [
-                                    {
-                                      extend: "copy",
-                                      className: "btn-sm"
-                                    },
-                                    {
-                                      extend: "csv",
-                                      className: "btn-sm"
-                                    },
-                                    {
-                                      extend: "excel",
-                                      className: "btn-sm"
-                                    },
-                                    {
-                                      extend: "pdfHtml5",
-                                      className: "btn-sm"
-                                    },
-                                    {
-                                      extend: "print",
-                                      className: "btn-sm"
-                                    },
-                              ]
+                        ]
                     });
                     
                  }else{
@@ -322,6 +339,57 @@
                       }
                   }
                 });
-            }			
+            }		            
+            //report table
+    function getStationReport() {
+        var base_url = "<?php echo base_url(); ?>";
+           $.ajax({
+             type: "POST",
+             url: base_url+"ajax/getStationReport",
+             data: $('#report_form').serialize(),
+             dataType: "json",
+             success: function(data) {
+                 $('#report_table').DataTable({
+                        data: data.data,
+                        destroy: true,
+                        searching: true,
+                        columns: [
+                            { data: 'flowrate_1' },
+                            { data: 'total_1' }, 
+                            { data: 'flowrate_2' },
+                            { data: 'total_2' },
+                            { data: 'reporting_datetime' }
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                                    {
+                                      extend: "csv",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "excel",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "pdfHtml5",
+                                      className: "btn-sm"
+                                    },
+                                    {
+                                      extend: "print",
+                                      className: "btn-sm"
+                                    }
+                              ]
+                       
+                    });
+             }
+         });
+    }
+    $('.bs-report-modal-lg').on('shown.bs.modal', function (e) {
+        console.log("opened");
+//        $('#report_table').DataTable({
+//                destroy: true
+//        })
+            $('#report_table').dataTable().fnClearTable();
+    })
  </script>
         <!-- /page content -->
