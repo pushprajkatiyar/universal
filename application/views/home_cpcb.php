@@ -153,18 +153,18 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Interval</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <select class="form-control">
-                            <option>Choose option</option>
-                            <option>Option one</option>
-                            <option>Option two</option>
-                            <option>Option three</option>
-                            <option>Option four</option>
+                            <option>30 Sec</option>
+                            <option>One Min</option>
+                            <option>One Hour</option>
+                            <option>One Day</option>
                           </select>
                         </div>
                       </div>                      
                       <div class="ln_solid"></div>
+					  <button type="button" class="btn btn-primary">Generate Report</button>
                       </form>
                   </div>
                 </div>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Generate Report</button>
+                          
                         </div>
 
                       </div>
