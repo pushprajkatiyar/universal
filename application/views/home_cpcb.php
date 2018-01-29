@@ -1,9 +1,6 @@
  <!-- page content -->
         <div class="right_col" role="main">
-          <!-- top tiles -->
-          <div class="row tile_count"></div>
-          <!-- /top tiles -->
-
+          
           <div class="row">
             <div class="col-md-7 col-sm-7 col-xs-7">
               <!-- Historic Trends/Details Start -->
@@ -14,7 +11,7 @@
                 </div>
                   <!-- Historic Trends/Details Graph Start -->
                   <div class="x_content" >
-                    <canvas id="lineChart" style="height: 550px; width: 100%"></canvas>
+                    <canvas id="lineChart" style="height: 300px; width: 100%"></canvas>
                 </div>
               </div>  
                 <!-- Historic Trends/Details Graph End -->
@@ -61,7 +58,7 @@
                      <div class="clearfix"></div>
                    </div>
                      <div class="x_content">
-                         <div id="map" style="height: 380px; width: 100%"></div>
+                         <div id="map" style="height: 305px; width: 100%"></div>
                      </div>  
                  </div>
                  <div class="clearfix"></div>

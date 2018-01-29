@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Universal Enviro connect | Admin</title>
+    <title>Universal Engineer | Admin</title>
     <link rel="shortcut icon" type="image/png" href="<?php echo base_url(); ?>img/logo3.png"/>
         <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

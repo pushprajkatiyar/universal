@@ -10,6 +10,9 @@ and open the template in the editor.
 
 
   body{
-      background: #FFFFFF; 
+/*      background: #FFFFFF; */
       background-image: url("../images/bc.png");
+      background-size:     cover;
+      background-repeat:   no-repeat;
+      /*background-position: center center;*/  
   }
