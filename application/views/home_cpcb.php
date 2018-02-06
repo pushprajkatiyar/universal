@@ -347,7 +347,7 @@
              dataType: "json",
              success: function(data) {
                  $('#report_table').DataTable({
-                        data: data.data,
+                        data: data.data.table,
                         destroy: true,
                         searching: true,
                         columns: [
@@ -362,17 +362,17 @@
                                     {
                                       extend: "csv",
                                       className: "btn-sm",
-                                      title: 'Data export'
+                                      title: data.data.plant.name
                                     },
                                     {
                                       extend: "excel",
                                       className: "btn-sm",
-                                      title: 'Data export'
+                                      title: data.data.plant.name
                                     },
                                     {
                                       extend: "pdfHtml5",
                                       className: "btn-sm",
-                                      title: 'Data export'
+                                      title: data.data.plant.name
                                     },
                                     {
                                       extend: "print",

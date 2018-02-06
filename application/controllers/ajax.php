@@ -175,7 +175,7 @@ class Ajax extends CI_Controller{
          if(in_array("flowrate_2", $columns_array)){
              $flowrate_2[] = $history->flowrate_2;
          }
-         $label[]= date("d-m H:i:s", strtotime($history->reporting_datetime));
+         $label[]= date("Y-m-d H:i:s", strtotime($history->reporting_datetime));
        }
        $response_array['graph_data']['flowrate_1'] = $flowrate_1;
        $response_array['graph_data']['flowrate_2'] = $flowrate_2;
@@ -199,7 +199,8 @@ class Ajax extends CI_Controller{
 //        $data = $this->device_model->getDeviceHistory($device_id, "flowrate_1, total_1, flowrate_2, total_2, reporting_datetime", $where);
         $data = $this->device_model->getDeviceHistory($device_id, "flowrate_1, total_1, flowrate_2, total_2, reporting_datetime, device_id", $where);
 
-        $response_array['data'] = $data;
+        $response_array['data']['table'] = $data;
+        $response_array['data']['plant'] = $this->plant_model->getPlantByPlantId($this->session->userdata('plantId'));
         $response_array['status'] = 1;
         
         die(json_encode($response_array));
