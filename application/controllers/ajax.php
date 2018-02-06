@@ -196,8 +196,8 @@ class Ajax extends CI_Controller{
 //        die(print_r($this->session->all_userdata()));
         $device_id = $this->session->userdata('currentDeviceId');
         $where = "reporting_datetime BETWEEN '$fromDate' AND '$toDate'";
-        $data = $this->device_model->getDeviceHistory($device_id, "flowrate_1, flowrate_2, reporting_datetime", $where);
 //        $data = $this->device_model->getDeviceHistory($device_id, "flowrate_1, total_1, flowrate_2, total_2, reporting_datetime", $where);
+        $data = $this->device_model->getDeviceHistory($device_id, "flowrate_1, total_1, flowrate_2, total_2, reporting_datetime, device_id", $where);
 
         $response_array['data'] = $data;
         $response_array['status'] = 1;
