@@ -152,9 +152,9 @@
                                 <thead>
                                     <tr>
                                         <th>Flow Meter 1</th>
-                                        <th>Totalizer 1</th>
+                                        <!--<th>Totalizer 1</th>-->
                                         <th>Flow Meter 2</th>
-                                        <th>Totalizer 2</th>
+                                        <!--<th>Totalizer 2</th>-->
                                         <th>Reported Time</th>
                                     </tr>
                                 </thead>
@@ -352,24 +352,27 @@
                         searching: true,
                         columns: [
                             { data: 'flowrate_1' },
-                            { data: 'total_1' }, 
+//                            { data: 'total_1' }, 
                             { data: 'flowrate_2' },
-                            { data: 'total_2' },
+//                            { data: 'total_2' },
                             { data: 'reporting_datetime' }
                         ],
                         dom: 'Bfrtip',
                         buttons: [
                                     {
                                       extend: "csv",
-                                      className: "btn-sm"
+                                      className: "btn-sm",
+                                      title: 'Data export'
                                     },
                                     {
                                       extend: "excel",
-                                      className: "btn-sm"
+                                      className: "btn-sm",
+                                      title: 'Data export'
                                     },
                                     {
                                       extend: "pdfHtml5",
-                                      className: "btn-sm"
+                                      className: "btn-sm",
+                                      title: 'Data export'
                                     },
                                     {
                                       extend: "print",
