@@ -100,17 +100,99 @@
                  </div>
                  <!-- plant details End -->
              </div>  
+              <!-- Large modal -->
+                  <div class="modal fade bs-report-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel">Get Station Report</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                          <div class="x_panel">
+                            <div class="x_content">
+                              <br />
+                              <form id="report_form"  class="form-horizontal form-label-left">
+
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">From Date <span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <input type="text" id="from_date" name="from_date" required="required" class="form-control col-md-7 col-xs-12 report_dates">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">To Date <span class="required">*</span>
+                                  </label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="to_date" name="to_date" required="required" class="form-control col-md-7 col-xs-12 report_dates">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label col-md-3 col-sm-3 col-xs-12">Interval</label>
+                                  <div class="col-md-6 col-sm-6 col-xs-12">
+                                      <select class="form-control" name="interval">
+                                      <option>30 Sec</option>
+                                      <option>1 Min</option>
+                                      <option>2 Min</option>
+                                      <option>5 Min</option>
+                                      <option>15 Min</option>
+                                      <option>30 Min</option>
+                                      <option>1 Hour</option>
+                                      <option>1 Day</option>
+                                    </select>
+                                  </div>
+                                </div>                      
+                                <div class="ln_solid"></div>
+                                <button type="button" class="btn btn-primary" onclick="getStationReport()">Generate Report</button>
+                                <div class="ln_solid"></div>
+                                <table id="report_table" class="table table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Flow Meter 1</th>
+                                        <!--<th>Totalizer 1</th>-->
+                                        <th>Flow Meter 2</th>
+                                        <!--<th>Totalizer 2</th>-->
+                                        <th>Reported Time</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                                </form>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
           </div>
           <br />
         </div>
     <script  type="text/javascript">
+        $(function() {
+            $('.report_dates').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true
+//                timePicker: true
+            }) 
+        })
       function initMap() {
         var myLatLng = {lat: <?php echo $plants_devices[$current_plant]['plant']->lat ?>, lng: <?php echo $plants_devices[$current_plant]['plant']->lng ?>};
 
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
           center: myLatLng,
-          mapTypeId: google.maps.MapTypeId.SATELLITE
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
         var marker = new google.maps.Marker({
@@ -251,6 +333,52 @@
                   }
                 });
             }
-        });			
+        });
+ function getStationReport() {
+        var base_url = "<?php echo base_url(); ?>";
+           $.ajax({
+             type: "POST",
+             url: base_url+"ajax/getStationReport",
+             data: $('#report_form').serialize(),
+             dataType: "json",
+             success: function(data) {
+                 $('#report_table').DataTable({
+                        data: data.data.table,
+                        destroy: true,
+                        searching: true,
+                        columns: [
+                            { data: 'flowrate_1' },
+//                            { data: 'total_1' }, 
+                            { data: 'flowrate_2' },
+//                            { data: 'total_2' },
+                            { data: 'reporting_datetime' }
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                                    {
+                                      extend: "csv",
+                                      className: "btn-sm",
+                                      title: data.data.plant.name
+                                    },
+                                    {
+                                      extend: "excel",
+                                      className: "btn-sm",
+                                      title: data.data.plant.name
+                                    },
+                                    {
+                                      extend: "pdfHtml5",
+                                      className: "btn-sm",
+                                      title: data.data.plant.name
+                                    },
+                                    {
+                                      extend: "print",
+                                      className: "btn-sm"
+                                    }
+                              ]
+                       
+                    });
+             }
+         });
+    }       
  </script>
         <!-- /page content -->

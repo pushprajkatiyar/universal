@@ -214,6 +214,7 @@
             $('.report_dates').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true
+  //              timePicker: true
             }) 
         })
       function initMap(lat, lng) {
@@ -221,7 +222,7 @@
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 14,
           center: myLatLng,
-          mapTypeId: google.maps.MapTypeId.SATELLITE
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
         var marker = new google.maps.Marker({
