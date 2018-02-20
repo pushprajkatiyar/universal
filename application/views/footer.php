@@ -65,7 +65,8 @@
         <script src="<?php echo base_url(); ?>vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>build/js/custom.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyndETMGr3nI9-3cTuje1jYftltHV8G2c&callback=initMap" async defer></script>
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyDyndETMGr3nI9-3cTuje1jYftltHV8G2c"></script>
+<!--    <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap" async defer></script>-->
    	
   </body>
 </html>

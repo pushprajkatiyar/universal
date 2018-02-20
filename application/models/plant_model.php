@@ -10,7 +10,7 @@ class Plant_model extends CI_Model {
     public function getPlantByPlantId($plant_id) {
 
         $condition = "id =" . "'" . $plant_id . "'";
-        $this->db->select('id, name, address, phone, email, lat, lng, description, zip, city, state');
+        $this->db->select('id, name, address, phone, email, type, code, lat, lng, description, zip, city, state');
         $this->db->from('plant');
         $this->db->where($condition);
         $this->db->limit(1);

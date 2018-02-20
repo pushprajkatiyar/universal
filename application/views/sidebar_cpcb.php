@@ -22,7 +22,7 @@
                 <!-- plant list -->
                 <ul class="nav side-menu">
                  <?php foreach ($plants_devices as $plant) {  ?>
-                  <li><a><i class="fa fa-hospital-o"></i><?php echo $plant['plant']['name'] ?><span class="fa fa-chevron-down active"></span></a>
+                  <li><a><i class="fa fa-circle" style="color:green"></i><?php echo $plant['plant']['name'] ?><span class="fa fa-chevron-down active"></span></a>
                     <!-- implemented devices list -->
                     <ul class="nav child_menu">
                       <?php foreach ($plant['devices'] as $device) {  ?>  

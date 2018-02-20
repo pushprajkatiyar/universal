@@ -9,12 +9,14 @@
               <div class="nav navbar-nav navbar-left">
                   <h2>Customer Name: <small id="plant_name"></small></h2>
                   <h2>Customer Address: <small id="plant_add"></small></h2>
+                  <h2>Industry Type: <small id="plant_type"></small></h2>                  
               </div>
               <!----- Customer basic Details Ends -->
               
               <!--  Plant Data loading Start-->
               <div class="nav navbar-nav " style="float: right;margin-right: 3%">
                   <h2>Plant Data Loading: <small id="plant_data_loading_per"> </small> %</h2>
+                  <h2>Industry code: <small id="plant_code"> </small></h2>
                   <!-- Large modal -->
                   <button type="button" class="btn btn-primary right" data-toggle="modal" data-target=".bs-report-modal-lg">Station Report</button>
                   <button type="button" class="btn btn-primary right" data-toggle="modal" data-target=".bs-calibration-modal-lg">Online Calibration</button>

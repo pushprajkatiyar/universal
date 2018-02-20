@@ -251,6 +251,8 @@
                     $('#plant_name').html(data.plant.name);
                     $('#plant_add').html(data.plant.address);
                     $('#plant_name_table').html(data.plant.name);
+                    $('#plant_type').html(data.plant.type);
+                    $('#plant_code').html(data.plant.code);
                     $('#plant_add_table').html(data.plant.address);
                     $('#plant_phone_table').html(data.plant.phone);
                     $('#plant_email_table').html(data.plant.email);

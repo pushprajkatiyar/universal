@@ -106,7 +106,7 @@
                       <div class="modal-content">
 
                         <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">Ã—</span>
                           </button>
                           <h4 class="modal-title" id="myModalLabel">Get Station Report</h4>
                         </div>
@@ -186,6 +186,7 @@
 //                timePicker: true
             }) 
         })
+      
       function initMap() {
         var myLatLng = {lat: <?php echo $plants_devices[$current_plant]['plant']->lat ?>, lng: <?php echo $plants_devices[$current_plant]['plant']->lng ?>};
 
@@ -215,6 +216,7 @@
             success: function(data) {
                 if(data.status){
                    drawChart(data.graph_data);
+                   initMap();
                    //drawtable(data.table_data);
                    $('#plant_data_loading_per').html(data.plant_data_uploading_per);
                    //draw table
