@@ -205,6 +205,15 @@ class Ajax extends CI_Controller{
         
         die(json_encode($response_array));
     }
+    function getAlertReport(){
+        $device_id = $this->session->userdata('currentDeviceId');
+        $response_array['alerts']['sms'] = $this->device_model->getSmsAlert($device_id, 100);
+        $response_array['alerts']['email'] = $this->device_model->getEmailAlert($device_id, 100);
+
+        $response_array['status'] = 1;
+        
+        die(json_encode($response_array));
+    }
 }
 
 ?>

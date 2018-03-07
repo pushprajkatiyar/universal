@@ -20,6 +20,7 @@
                   <!-- Large modal -->
                   <button type="button" class="btn btn-primary right" data-toggle="modal" data-target=".bs-report-modal-lg">Station Report</button>
                   <button type="button" class="btn btn-primary right" data-toggle="modal" data-target=".bs-calibration-modal-lg">Online Calibration</button>
+                  <button type="button" class="btn btn-primary right" data-toggle="modal" data-target=".bs-alert-modal-lg">SMS/Email Alert</button>
               </div>
               <!-- Loading end -->
             </nav>

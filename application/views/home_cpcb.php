@@ -206,6 +206,58 @@
                       </div>
                     </div>
                   </div>
+              <!-- Large modal -->
+                  <div class="modal fade bs-alert-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                          </button>
+                            <h4 class="modal-title" id="myModalLabel">Idle Alerts <small>[Last 100 Records]</small></h4>
+                        </div>
+                        <div class="modal-body">
+                        <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                              <div class="x_title">Email Alert</div>
+                              <div class="x_content">
+                                <table id="email_alert_table" class="table table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Send To</th>
+                                        <th>Message</th>
+                                        <th>Send Time</th>
+                                    </tr>
+                                </thead>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="x_panel">
+                              <div class="x_title">SMS Alert</div>
+                              <div class="x_content">
+                                <table id="sms_alert_table" class="table table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Send To</th>
+                                        <th>Message</th>
+                                        <th>Send Time</th>
+                                    </tr>
+                                </thead>
+                                </table>
+                              </div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
           </div>
           <br />
         </div>
@@ -389,10 +441,48 @@
     }
     $('.bs-report-modal-lg').on('shown.bs.modal', function (e) {
         console.log("opened");
-//        $('#report_table').DataTable({
-//                destroy: true
-//        })
-            $('#report_table').dataTable().fnClearTable();
+        $('#report_table').dataTable().fnClearTable();
     })
+    $('.bs-alert-modal-lg').on('shown.bs.modal', function (e) {
+        console.log("opened");
+        $('#email_alert_table').dataTable().fnClearTable();
+        $('#sms_alert_table').dataTable().fnClearTable();
+        getAlertReport();
+    })
+    function getAlertReport() {
+        var base_url = "<?php echo base_url(); ?>";
+           $.ajax({
+             type: "GET",
+             url: base_url + "ajax/getAlertReport",
+             dataType: "json",
+             success: function(data) {
+                 //Creating Email alert table
+                 console.log(data);
+                    $('#email_alert_table').DataTable({
+                        data: data.alerts.email,
+                        destroy: true,
+                        columns: [
+                            { data: 'send_to' },
+//                            { data: 'total_1' }, 
+                            { data: 'msg' },
+//                            { data: 'total_2' },
+                            { data: 'send_at' }
+                        ]
+                    });
+                    //Creating sms alert table
+                    $('#sms_alert_table').DataTable({
+                        data: data.alerts.sms,
+                        destroy: true,
+                        columns: [
+                            { data: 'send_to' },
+//                            { data: 'total_1' }, 
+                            { data: 'msg' },
+//                            { data: 'total_2' },
+                            { data: 'send_to' }
+                        ]
+                    });
+             }
+         });
+    }
  </script>
         <!-- /page content -->

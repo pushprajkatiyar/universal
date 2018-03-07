@@ -77,6 +77,36 @@ class Device_model extends CI_Model {
             return array();
         }
     }
+    public function getSmsAlert($device_id, $limit = 100){
+        $this->db->select("send_to, msg, send_at");
+        $this->db->from('sms_alert');
+        $this->db->limit($limit);
+        $this->db->where("device_id", $device_id);
+        $this->db->order_by("id", "DESC");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result =  $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+    public function getEmailAlert($device_id, $limit = 100){
+        $this->db->select("send_to, msg, send_at");
+        $this->db->from('email_alerts');
+        $this->db->limit($limit);
+        $this->db->where("device_id", $device_id);
+        $this->db->order_by("id", "DESC");
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            $result =  $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 }
 
 ?>
